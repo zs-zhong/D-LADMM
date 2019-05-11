@@ -9,7 +9,7 @@ By Xingyu Xie, [Jianlong Wu](https://jlwu1992.github.io), [Zhisheng Zhong](https
 
 For more details or questions, feel free to contact: 
 
-Xingyu Xie: nuaaxing@gmail.com and Jianlong Wu: dragonfly@hust.edu.cn
+Xingyu Xie: nuaaxing@gmail.com and Jianlong Wu: jlwu1992@pku.edu.cn
 
 ***********************************************************************************************************
 
