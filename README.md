@@ -4,7 +4,7 @@
 
 This repository is for Differentiable Linearized ADMM (to appear in ICML 2019)
 
-by Xingyu Xie, [Jianlong Wu](https://jlwu1992.github.io), [Zhisheng Zhong](https://zzs1994.github.io), [Guangcan Liu](http://web2.nuist.edu.cn:8080/jszy/Professor.aspx?id=1990) and [Zhouchen Lin](http://www.cis.pku.edu.cn/faculty/vision/zlin/zlin.htm).
+By Xingyu Xie, [Jianlong Wu](https://jlwu1992.github.io), [Zhisheng Zhong](https://zzs1994.github.io), [Guangcan Liu](http://web2.nuist.edu.cn:8080/jszy/Professor.aspx?id=1990) and [Zhouchen Lin](http://www.cis.pku.edu.cn/faculty/vision/zlin/zlin.htm).
 
 
 For more details or questions, feel free to contact: 
@@ -13,8 +13,6 @@ Xingyu Xie: nuaaxing@gmail.com and Jianlong Wu: dragonfly@hust.edu.cn
 
 ***********************************************************************************************************
 
-### Citation
-TODO
 
 ### Introduction
 we propose Differentiable Linearized ADMM (D-LADMM) for solving the problems with linear constraints. Specifically, D-LADMM is a K-layer
@@ -32,3 +30,8 @@ TODO
 |D-LADMM (d =  5) |------------- |-----|
 |D-LADMM (d = 10) |------------- |-----|
 |D-LADMM (d = 15) |------------- |-----|
+
+
+
+### Citation
+TODO
