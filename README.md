@@ -20,7 +20,7 @@ LADMM inspired deep neural network, which is obtained by firstly introducing som
 
 
 ### Usage
-Here we give a toy example code of D-LADMM for Lena image restoration. An example to run this code:
+Here we give a toy example of D-LADMM for Lena image restoration. An example to run this code:
 
 ```Python
 python main_lena.py
@@ -42,6 +42,11 @@ The testing result of the Lena image restoration. The whole process takes about 
 
 If you find this page useful, please cite our paper:
 
-[[1] Xingyu Xie, Jianlong Wu, Zhisheng Zhong, Guangcan Liu and Zhouchen Lin, Differentiable Linearized ADMM. ICML (2019).](https://arxiv.org/abs/1905.06179])
+		@article{xie2019differentiable,
+		  title={Differentiable Linearized ADMM},
+		  author={Xie, Xingyu and Wu, Jianlong and Zhong, Zhisheng and Liu, Guangcan and Lin, Zhouchen},
+		  journal={arXiv preprint arXiv:1905.06179},
+		  year={2019}
+		}
 
 All rights are reserved by the authors.
