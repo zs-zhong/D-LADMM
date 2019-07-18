@@ -16,19 +16,19 @@ Xingyu Xie: nuaaxing@gmail.com and Jianlong Wu: jlwu1992@pku.edu.cn
 - [Introduction](#introduction)
 - [Usage](#usage)
 - [Experiment Results](#Experiment-Results)
-
+***********************************************************************************************************
 ### Introduction
 we propose Differentiable Linearized ADMM (D-LADMM) for solving the problems with linear constraints. Specifically, D-LADMM is a K-layer
 LADMM inspired deep neural network, which is obtained by firstly introducing some learnable weights in the classical Linearized ADMM algorithm and then generalizing the proximal operator to some learnable activation function. Notably, we mathematically prove that there exist a set of learnable parameters for D-LADMM to generate globally converged solutions, and we show that those desired parameters can be attained by training D-LADMM in a proper way. 
 
-
+***********************************************************************************************************
 ### Usage
 Here we give a toy example of D-LADMM for the Lena image denoise. An example to run this code:
 
 ```Python
 python main_lena.py
 ```
-
+***********************************************************************************************************
 ### Experiment Results
 
 The testing result of the Lena image denoise. The whole process takes about 30 epochs.
@@ -43,8 +43,7 @@ Denoising results of the Lena image:
 
 <div align=left><img src="https://raw.githubusercontent.com/zzs1994/D-LADMM/master/img/vis.png" width="90%" height="90%">
 
-
-
+***********************************************************************************************************
 ### Citation
 
 If you find this page useful, please cite our paper:
