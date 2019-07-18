@@ -55,6 +55,6 @@ If you find this page useful, please cite our paper:
 		booktitle={International Conference on Machine Learning},
 		pages={6902--6911},
 		year={2019}
-}
+	}
 
 All rights are reserved by the authors.
