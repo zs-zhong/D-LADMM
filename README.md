@@ -51,7 +51,7 @@ If you find this page useful, please cite our paper:
 
 	@inproceedings{xie2019differentiable,
 		title={Differentiable Linearized ADMM},
-		author={Xie, Xingyu and Wu, Jianlong and Liu, Guangcan and Zhong, Zhisheng and Lin, Zhouchen},
+		author={Xingyu Xie and Jianlong Wu and Zhisheng Zhong and Guangcan Liu and Zhouchen Lin},
 		booktitle={International Conference on Machine Learning},
 		pages={6902--6911},
 		year={2019}
