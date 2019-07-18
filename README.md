@@ -35,9 +35,9 @@ The testing result of the Lena image denoise. The whole process takes about 30 e
 
 |Model            |Training Loss |PSNR |
 |-----------------|------------- |-----|
-|D-LADMM (d =  5) |----1.667---- |33.57|
-|D-LADMM (d = 10) |----1.663---- |35.44|
-|D-LADMM (d = 15) |----1.659---- |35.61|
+|D-LADMM (d =  5) |    1.667     |33.57|
+|D-LADMM (d = 10) |    1.663     |35.44|
+|D-LADMM (d = 15) |    1.659     |35.61|
 
 Denoising results of the Lena image:
 
