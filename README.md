@@ -41,7 +41,7 @@ The testing result of the Lena image denoise. The whole process takes about 30 e
 
 Denoising results the Lena image:
 
-<div align=left><img src="https://raw.githubusercontent.com/zzs1994/D-LADMM/img/vis.png" width="90%" height="90%">
+<div align=left><img src="https://raw.githubusercontent.com/zzs1994/D-LADMM/master/img/vis.png" width="90%" height="90%">
 
 
 
