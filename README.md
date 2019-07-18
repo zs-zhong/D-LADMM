@@ -2,7 +2,7 @@
 
 ***********************************************************************************************************
 
-This repository is for Differentiable Linearized ADMM (to appear in ICML 2019)
+This repository is for [Differentiable Linearized ADMM](https://arxiv.org/abs/1905.06179) (to appear in ICML 2019)
 
 By Xingyu Xie, [Jianlong Wu](https://jlwu1992.github.io), [Zhisheng Zhong](https://zzs1994.github.io), [Guangcan Liu](http://web2.nuist.edu.cn:8080/jszy/Professor.aspx?id=1990) and [Zhouchen Lin](http://www.cis.pku.edu.cn/faculty/vision/zlin/zlin.htm).
 
@@ -23,7 +23,7 @@ LADMM inspired deep neural network, which is obtained by firstly introducing som
 
 
 ### Usage
-Here we give a toy example of D-LADMM for Lena image denoise. An example to run this code:
+Here we give a toy example of D-LADMM for the Lena image denoise. An example to run this code:
 
 ```Python
 python main_lena.py
@@ -35,11 +35,11 @@ The testing result of the Lena image denoise. The whole process takes about 30 e
 
 |Model            |Training Loss |PSNR |
 |-----------------|------------- |-----|
-|D-LADMM (d =  5) |------------- |-----|
-|D-LADMM (d = 10) |------------- |-----|
-|D-LADMM (d = 15) |------------- |-----|
+|D-LADMM (d =  5) |----1.667---- |33.57|
+|D-LADMM (d = 10) |----1.663---- |35.44|
+|D-LADMM (d = 15) |----1.659---- |35.61|
 
-Denoising results the Lena image:
+Denoising results of the Lena image:
 
 <div align=left><img src="https://raw.githubusercontent.com/zzs1994/D-LADMM/master/img/vis.png" width="90%" height="90%">
 
