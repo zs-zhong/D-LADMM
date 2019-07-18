@@ -49,11 +49,12 @@ Denoising results of the Lena image:
 
 If you find this page useful, please cite our paper:
 
-	@article{xie2019differentiable,
-	  title={Differentiable Linearized ADMM},
-	  author={Xie, Xingyu and Wu, Jianlong and Zhong, Zhisheng and Liu, Guangcan and Lin, Zhouchen},
-	  journal={arXiv preprint arXiv:1905.06179},
-	  year={2019}
-	}
+	@inproceedings{xie2019differentiable,
+		title={Differentiable Linearized ADMM},
+		author={Xie, Xingyu and Wu, Jianlong and Liu, Guangcan and Zhong, Zhisheng and Lin, Zhouchen},
+		booktitle={International Conference on Machine Learning},
+		pages={6902--6911},
+		year={2019}
+}
 
 All rights are reserved by the authors.
