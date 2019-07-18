@@ -12,7 +12,10 @@ For more details or questions, feel free to contact:
 Xingyu Xie: nuaaxing@gmail.com and Jianlong Wu: jlwu1992@pku.edu.cn
 
 ***********************************************************************************************************
-
+### table of contents
+- [Introduction](#introduction)
+- [Usage](#usage)
+- [Experiment Results](#Experiment-Results)
 
 ### Introduction
 we propose Differentiable Linearized ADMM (D-LADMM) for solving the problems with linear constraints. Specifically, D-LADMM is a K-layer
@@ -20,15 +23,15 @@ LADMM inspired deep neural network, which is obtained by firstly introducing som
 
 
 ### Usage
-Here we give a toy example of D-LADMM for Lena image restoration. An example to run this code:
+Here we give a toy example of D-LADMM for Lena image denoise. An example to run this code:
 
 ```Python
 python main_lena.py
 ```
 
-### Some Experiment Results
+### Experiment Results
 
-The testing result of the Lena image restoration. The whole process takes about 30 epochs.
+The testing result of the Lena image denoise. The whole process takes about 30 epochs.
 
 |Model            |Training Loss |PSNR |
 |-----------------|------------- |-----|
@@ -36,17 +39,21 @@ The testing result of the Lena image restoration. The whole process takes about 
 |D-LADMM (d = 10) |------------- |-----|
 |D-LADMM (d = 15) |------------- |-----|
 
+Denoising results the Lena image:
+
+<div align=left><img src="https://github.com/zzs1994/D-LADMM/img/vis.png" width="90%" height="90%">
+
 
 
 ### Citation
 
 If you find this page useful, please cite our paper:
 
-		@article{xie2019differentiable,
-		  title={Differentiable Linearized ADMM},
-		  author={Xie, Xingyu and Wu, Jianlong and Zhong, Zhisheng and Liu, Guangcan and Lin, Zhouchen},
-		  journal={arXiv preprint arXiv:1905.06179},
-		  year={2019}
-		}
+	@article{xie2019differentiable,
+	  title={Differentiable Linearized ADMM},
+	  author={Xie, Xingyu and Wu, Jianlong and Zhong, Zhisheng and Liu, Guangcan and Lin, Zhouchen},
+	  journal={arXiv preprint arXiv:1905.06179},
+	  year={2019}
+	}
 
 All rights are reserved by the authors.
