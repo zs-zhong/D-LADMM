@@ -6,40 +6,13 @@ import torchvision.datasets as dset
 import torchvision.transforms as transforms
 import torch.nn.functional as F
 import torch.optim as optim
-import pdb
 import numpy as np
 import scipy.io as sio
 import scipy.misc
-## load mnist dataset
-np.random.seed(1126)
-os.environ["CUDA_VISIBLE_DEVICES"]="7"
-
-use_cuda = torch.cuda.is_available()
-
-def l2_normalize(inputs):
-    [batch_size, dim] = inputs.shape
-    inputs2 = torch.mul(inputs, inputs)
-    norm2 = torch.sum(inputs2, 1)
-    root_inv = torch.rsqrt(norm2)
-    tmp_var1 = root_inv.expand(dim,batch_size)
-    tmp_var2 = torch.t(tmp_var1)
-    nml_inputs = torch.mul(inputs, tmp_var2)
-    return nml_inputs
-
-def l2_col_normalize(inputs):
-    [dim1, dim2] = inputs.shape
-    inputs2 = np.multiply(inputs, inputs)
-    norm2 = np.sum(inputs2, 0)
-    root = np.sqrt(norm2)
-    root_inv = 1/root
-    tmp_var1 = np.tile(root_inv,dim1)
-    tmp_var2 = tmp_var1.reshape(dim1, dim2)
-    nml_inputs = np.multiply(inputs, tmp_var2)
-    return nml_inputs
 
 
-## network
 
+## network definition
 class DLADMMNet(nn.Module):
     def __init__(self, m, n, d, batch_size, A, Z0, E0, L0, layers):
         super(DLADMMNet, self).__init__()
@@ -128,6 +101,8 @@ class DLADMMNet(nn.Module):
     def name(self):
         return "DLADMMNet"
 
+
+# other functions
 def trans2image(img):
 	# img 256 x 1024
 	img = img.cpu().data.numpy()
@@ -139,67 +114,68 @@ def trans2image(img):
 			count = count+1
 	return new_img
 
+def l2_normalize(inputs):
+    [batch_size, dim] = inputs.shape
+    inputs2 = torch.mul(inputs, inputs)
+    norm2 = torch.sum(inputs2, 1)
+    root_inv = torch.rsqrt(norm2)
+    tmp_var1 = root_inv.expand(dim,batch_size)
+    tmp_var2 = torch.t(tmp_var1)
+    nml_inputs = torch.mul(inputs, tmp_var2)
+    return nml_inputs
 
+def l2_col_normalize(inputs):
+    [dim1, dim2] = inputs.shape
+    inputs2 = np.multiply(inputs, inputs)
+    norm2 = np.sum(inputs2, 0)
+    root = np.sqrt(norm2)
+    root_inv = 1/root
+    tmp_var1 = np.tile(root_inv,dim1)
+    tmp_var2 = tmp_var1.reshape(dim1, dim2)
+    nml_inputs = np.multiply(inputs, tmp_var2)
+    return nml_inputs
 
 def calc_PSNR(x1, x2):
-	# pdb.set_trace()
 	x1 = x1 * 255.0
 	x2 = x2 * 255.0
 	mse = F.mse_loss(x1, x2)
 	psnr = -10 * torch.log10(mse) + torch.tensor(48.131)
 	return psnr
 
-
 def dual_gap(x, alpha):
     out = F.softplus(x - alpha) + F.softplus(- x - alpha) 
     return out
 
 
-
+np.random.seed(1126)
+os.environ["CUDA_VISIBLE_DEVICES"]="7"
 m, d, n = 256, 512, 10000
 n_test = 1024
 batch_size = 20
 layers = 15
+alpha = 0.45
+num_epoch = 100
+
+use_cuda = torch.cuda.is_available()
 print('==>>> batch size: {}'.format(batch_size))
 print('==>>> total trainning batch number: {}'.format(n//batch_size))
 print('==>>> total testing batch number: {}'.format(n_test//batch_size))
 
-cifar_data = sio.loadmat('lena_pepper_01.mat')
-A_ori = cifar_data['D']
+img_data = sio.loadmat('lena_pepper_01.mat')
+A_ori = img_data['D']
 A_ori = A_ori.astype(np.float32)#*(1.0/18.0)
-#A_ori = l2_col_normalize(A_ori)
 
-
-# Z_binomial = np.random.binomial(1, p, [d, n])
-# Z_binomial = Z_binomial.astype(np.float32)
-# Z_normal = np.random.normal(0, 1, [d, n])
-# Z_normal = Z_normal.astype(np.float32)
-# Z = np.multiply(Z_binomial, Z_normal)
-
-# E_binomial = np.random.binomial(1, p, [m, n]) 
-# E_binomial = E_binomial.astype(np.float32)
-# E_normal = np.random.normal(0, 1, [m, n])
-# E_normal = E_normal.astype(np.float32)
-# E = np.multiply(E_binomial, E_normal) 
-
-# X = np.dot(A, Z) + E
-X = cifar_data['train_x'].astype(np.float32)
+X = img_data['train_x'].astype(np.float32)
 X = X.T
 
-X_ts = cifar_data['test_x'].astype(np.float32)
+X_ts = img_data['test_x'].astype(np.float32)
 X_ts = X_ts.T
 
-X_gt = cifar_data['gt_x'].astype(np.float32)
+X_gt = img_data['gt_x'].astype(np.float32)
 X_gt = X_gt.T
 
-# new_img = np.zeros([512, 768])
-# count = 0
-# for ii in range(0, 512, 16):
-# 	for jj in range(0, 768, 16):
-# 		new_img[ii:ii+16,jj:jj+16] = np.transpose(np.reshape(X_gt[:, count],[16,16]))
-# 		count = count+1
-# # scipy.misc.imsave('out1.jpg', new_img)
-# # pdb.set_trace()
+
+# init parameters
 Z0 = 1.0 /d * torch.rand(d, batch_size, dtype=torch.float32)
 E0 = torch.zeros(m, batch_size, dtype=torch.float32)
 L0 = torch.zeros(m, batch_size, dtype=torch.float32)
@@ -212,14 +188,10 @@ A_tensor = A_tensor.cuda()
 if use_cuda:
     model = model.cuda()
 print(model)
-#optimizer = optim.SGD(model.parameters(), lr=0.01, momentum=0.9)
 
-#criterion = nn.CrossEntropyLoss()
 criterion = nn.MSELoss()
 index_loc = np.arange(10000)
 ts_index_loc = np.arange(1000)
-alpha = 0.45
-num_epoch = 1000
 psnr_value = 0
 best_pic = torch.zeros(256,1024)
 for epoch in range(num_epoch):
@@ -227,7 +199,6 @@ for epoch in range(num_epoch):
     learning_rate =  0.0002 * 0.5 ** (epoch // 30)
     print('learning rate of this epoch {:.8f}'.format(learning_rate))
     optimizer = optim.Adam(model.parameters(), lr=learning_rate) if epoch<20 else optim.SGD(model.parameters(), lr=learning_rate, momentum=0.9)
-    #optimizer =  optim.RMSprop(model.parameters(),lr=learning_rate)
     np.random.shuffle(index_loc)
     for j in range(n//batch_size):
         optimizer.zero_grad()
@@ -236,7 +207,6 @@ for epoch in range(num_epoch):
         input_bs = torch.from_numpy(input_bs)
         input_bs_var = torch.autograd.Variable(input_bs.cuda())
         [Z, E, L] = model(input_bs_var) 
-        # pdb.set_trace()
 
         loss = list()
         total_loss = 0
@@ -249,7 +219,6 @@ for epoch in range(num_epoch):
         total_loss.backward()
         optimizer.step()
         if (j) % 100 == 0:
-            # pdb.set_trace()
             # print('==>>> epoch: {},loss10: {:.6f}'.format(epoch, loss10))
             print('==>> epoch: {} [{}/{}]'.format(epoch+1, j, n//batch_size))
             for k in range(layers):
@@ -257,13 +226,13 @@ for epoch in range(num_epoch):
             print(" ")
 
     torch.save(model.state_dict(), model.name())
+
     print('---------------------------testing---------------------------')
     mse_value = torch.zeros(layers)
     for j in range(n_test//batch_size):
         input_bs = X_ts[:, j*batch_size:(j+1)*batch_size]
         input_bs = torch.from_numpy(input_bs)
         input_bs_var = torch.autograd.Variable(input_bs.cuda())
-        # pdb.set_trace()
         [Z, E, L] = model(input_bs_var)
 
         input_gt = X_gt[:, j*batch_size:(j+1)*batch_size]
@@ -271,11 +240,10 @@ for epoch in range(num_epoch):
         input_gt_var = torch.autograd.Variable(input_gt.cuda())
 
         for jj in range(layers):
-            # pdb.set_trace()
             mse_value[jj] = mse_value[jj] + F.mse_loss(255 * input_gt_var.cuda(), 255 * torch.mm(A_tensor, Z[jj]))
+
     mse_value = mse_value / (n_test//batch_size)
     psnr = -10 * torch.log10(mse_value) + torch.tensor(48.131)
-    # pdb.set_trace()
     for jj in range(layers):
         if(psnr_value < psnr[jj]):
             psnr_value = psnr[jj]
@@ -283,19 +251,18 @@ for epoch in range(num_epoch):
                 input_bs = X_ts[:, jjj*batch_size:(jjj+1)*batch_size]
                 input_bs = torch.from_numpy(input_bs)
                 input_bs_var = torch.autograd.Variable(input_bs.cuda())
-                # pdb.set_trace()
                 [Z, E, L] = model(input_bs_var)
                 best_pic[:, jjj*batch_size:(jjj+1)*batch_size] = 255* torch.mm(A_tensor, Z[jj])
-    # pdb.set_trace()
     # print('==>>> epoch: {}, psnr1: {:.6f}'.format(epoch, psnr[0]))
     print('==>> epoch: {}'.format(epoch))
     for k in range(layers):
                 print('PSNR{}:{:.3f}'.format(k+1, psnr[k]), end=' ')
     print(" ")
     print('******Best PSNR:{:.3f}'.format(psnr_value))
-    # pdb.set_trace()
-    #img = trans2image(best_pic)
-    #scipy.misc.imsave('lena_01.jpg', img)
+
+    # save recovered image
+    img = trans2image(best_pic)
+    scipy.misc.imsave('lena_01.jpg', img)
     
 
 
