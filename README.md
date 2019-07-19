@@ -12,7 +12,7 @@ For more details or questions, feel free to contact:
 Xingyu Xie: nuaaxing@gmail.com and Jianlong Wu: jlwu1992@pku.edu.cn
 
 ***********************************************************************************************************
-### table of contents
+### Table of contents
 - [Introduction](#introduction)
 - [Usage](#usage)
 - [Experiment Results](#Experiment-Results)
@@ -38,6 +38,8 @@ The testing result of the Lena image denoise. The whole process takes about 30 e
 |D-LADMM (d =  5) |    1.667     |33.57|
 |D-LADMM (d = 10) |    1.663     |35.44|
 |D-LADMM (d = 15) |    1.659     |35.61|
+
+d means the depth (the number of layers) of the D-LADMM model.
 
 Denoising results of the Lena image:
 
